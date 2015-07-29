@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="third_party">
+      <UniqueIdentifier>{592ee2f0-bd40-4420-9ed1-51dd5859a341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="third_party\NanoVG">
+      <UniqueIdentifier>{92f02cbf-0e40-4630-a38f-cb6fbb8dd123}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HeliumApp.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\include\NanoVG\fontstash.h">
+      <Filter>third_party\NanoVG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\include\NanoVG\nanovg.h">
+      <Filter>third_party\NanoVG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\include\NanoVG\nanovg_gl.h">
+      <Filter>third_party\NanoVG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\include\NanoVG\nanovg_gl_utils.h">
+      <Filter>third_party\NanoVG</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HeliumApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\third_party\include\NanoVG\nanovg.cpp">
+      <Filter>third_party\NanoVG</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
