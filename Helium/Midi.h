@@ -4,6 +4,7 @@
 #include "JuceHeader.h"
 #include <stdint.h>
 #include <condition_variable>
+#include <memory>
 
 class MidiPlayer
 {
@@ -22,9 +23,14 @@ public:
 
 		// On dimitri's computer, arduino_midi is 2, but may change
 		int desiredDevice = 1; 
-		mOut = juce::MidiOutput::openDevice(desiredDevice);
+		mOut.reset(juce::MidiOutput::openDevice(desiredDevice));
 
 	};
+
+	~MidiPlayer()
+	{
+
+	}
 
 	// Channel = Group (0 or 1)
 	// Pitch = Which LED (1-127, OR 128-256)
@@ -38,6 +44,6 @@ public:
 
 private:
 
-	juce::ScopedPointer<juce::MidiOutput> mOut;
+	std::unique_ptr<juce::MidiOutput> mOut;
 
 };
