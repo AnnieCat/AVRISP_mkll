@@ -194,6 +194,7 @@
     <ClCompile Include="third_party\juce\modules\juce_events\juce_events.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\simple-serial-master\stb_image.h" />
     <ClInclude Include="Midi.h" />
     <ClInclude Include="third_party\juce\AppConfig.h" />
     <ClInclude Include="third_party\juce\JuceHeader.h" />

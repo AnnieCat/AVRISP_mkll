@@ -36,6 +36,9 @@
     <ClInclude Include="Midi.h">
       <Filter>App</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\simple-serial-master\stb_image.h">
+      <Filter>App\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="App">
