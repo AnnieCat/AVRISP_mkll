@@ -34,28 +34,30 @@ struct Image
 };
 
 int myColor = 0;
+int arrayPos;
 
 int main(int argc, char *argv[])
 {
 
 	Image image("rainbowDebug.jpg");
 	int r,g,b;
-
 	
 
-	{
+	while(1){
 		MidiPlayer player;
 		
-		cout << "red: " << endl;
+		cout << "array Position? " << arrayPos << endl;
+		cin >> arrayPos;
+		cout << "r? " << endl;
 		cin >> r;
-		cout << "green: " << endl;
+		cout << "g? " << endl;
 		cin >> g;
-		cout << "blue: " << endl;
+		cout << "b? " << endl;
 		cin >> b;
 
-		player.SendMidiMessage(1, 1, r);
-		player.SendMidiMessage(2, 1, g);
-		player.SendMidiMessage(3, 1, b);
+		player.SendMidiMessage(1, arrayPos, r);
+		player.SendMidiMessage(2, arrayPos, g);
+		player.SendMidiMessage(3, arrayPos, b);
 		std::this_thread::sleep_for(std::chrono::milliseconds(7));
 
 		/*for (int y = 0; y < 4; ++y)
@@ -95,5 +97,6 @@ int main(int argc, char *argv[])
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	}
 
+	
 	return 0;
 }

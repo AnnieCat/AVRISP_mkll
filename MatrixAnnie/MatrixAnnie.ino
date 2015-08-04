@@ -29,12 +29,6 @@ int x, y;
 // Note on message will control all LEDS (8 * 16)
 // Channel 0 = 1-127
 // Channel 1 = 128-256
-/*void HandleNoteOn(byte channel, byte pitch, byte velocity) 
-{ 
-    y = ceil(pitch / 32);
-    if(channel == 1)
-      matrix.drawPixel(pitch - (32 * y), y, matrix.Color(velocity, 0, 0));
-}*/
 int r, g, b;
 void HandleNoteOn(byte channel, byte pitch, byte velocity)
 {
@@ -45,10 +39,19 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
   if(channel == 3)
     b = velocity;
 
-    matrix.fillScreen(matrix.Color(r,g,b));
-    matrix.show();
-    r , g, b = 0;
+    int y;
+    int x;
+
+    y = ceil(pitch / 32);
+    x = pitch - (y * 32);
     
+    
+    if(r != 0 && g != 0 && b != 0)
+    {
+      matrix.drawPixel(x, y, matrix.Color(r,g,b));
+      matrix.show();
+      r , g, b = 0;
+    }
 }
 
 
@@ -67,7 +70,6 @@ void setup()
 void loop()
 {
   unsigned long currentMillis = millis();
-
   MIDI.read();
 }
 
