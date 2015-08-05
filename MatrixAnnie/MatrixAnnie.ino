@@ -41,7 +41,7 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
     b = velocity;
 
 
-    int y = (int)(pitch / 32);
+    int y = ceil(pitch / 32);
     int x = pitch - (y * 32);
 
     if(pitch < 128)
@@ -50,7 +50,7 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
       {
         matrix.drawPixel(x,y, matrix.Color(r,g,b));
         matrix.show();
-        r, g, b = -2;
+        r, g, b = -1;
       }
     }
     
