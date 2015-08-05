@@ -14,7 +14,7 @@
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 #define PIN 6
-
+  //added 0 and 1 after 32 and 8, because I'm adding another matrix
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 8, PIN,
   NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
@@ -31,9 +31,37 @@ int x, y;
 // Channel 1 = 128-256
 int r, g, b = -1;
 
+
+// reciever to take individual notes for debugging purposes
 void HandleNoteOn(byte channel, byte pitch, byte velocity)
+{
+  
+  
+  if(channel == 1)
+  {
+    r = velocity;
+    g = velocity;
+    b = velocity;  
+  }
+
+  int y = ceil(pitch / 32);
+  int x = pitch - (y * 32);
+
+  if(channel < 4)
+  {
+    if(r > -1 && g > -1 && b > -1)
+    {
+      matrix.drawPixel(x,y, matrix.Color(r,g,b));
+      matrix.show();
+      r, g, b = -1;
+    }
+  }
+  
+}
+
+/*void HandleNoteOn(byte channel, byte pitch, byte velocity)
 { 
-  if(channel==1)
+  if(channel == 1)
     r = velocity;
   if(channel == 2)
     g = velocity;
@@ -45,6 +73,8 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
     g = velocity;
   if(channel == 6)
     b = velocity;
+
+
 
     int y = ceil(pitch / 32);
     int x = pitch - (y * 32);
@@ -67,7 +97,8 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
         r, g, b = -1;
       }
     }
-}
+   
+}*/
 
 
 void setup()

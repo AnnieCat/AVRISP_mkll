@@ -33,7 +33,7 @@ struct Image
 	}
 };
 
-int myColor = 255;
+int myColor = 0;
 int arrayPos;
 int x, y;
 
@@ -63,14 +63,14 @@ void UpdateScreen()
 
 				if (c == 0)
 				{
-					cout << "x: " << x << " y: " << y << " red: "<< sampleAverage << endl;
+					cout << "pitch: " << x + (y * 32) << " red: "<< sampleAverage << endl;
 				}
 
 				if (x + (y * 32) < 128)
 					player.SendMidiMessage(c + 1, x + (y * 32), sampleAverage);
-				if (x + (y * 32) >= 128)
+				if (x + (y * 32) >= 128 )
 					player.SendMidiMessage(c + 4, (x + (y * 32)) - 128, sampleAverage);
-				std::this_thread::sleep_for(std::chrono::milliseconds(6));
+				std::this_thread::sleep_for(std::chrono::milliseconds(7));
 			}
 		}
 	}
@@ -80,7 +80,22 @@ void UpdateScreen()
 
 int main(int argc, char *argv[])
 {
-	UpdateScreen();
+	//UpdateScreen();
+	
+	//debugging-- sending location and color
+	MidiPlayer player;
+	while (1){
+	
+		cout << "x? " << endl;
+		cin >> x;
+		cout << " y? " << endl;
+		cin >> y;
+		cout << " velocity? " << endl;
+		cin >> myColor;
+
+		player.SendMidiMessage(1, x + (y * 32), myColor);
+		std::this_thread::sleep_for(std::chrono::milliseconds(7));
+	}
 
 
 	//while(1){
