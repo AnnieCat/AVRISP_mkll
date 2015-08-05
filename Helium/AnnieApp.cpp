@@ -37,7 +37,6 @@ int myColor = 255;
 int arrayPos;
 int x, y;
 
-//int ColorMod = 0;
 Image image("redToOrange.jpg");
 
 int Map(int value, int inMin, int inMax, int outMin, int outMax){
@@ -48,17 +47,13 @@ void UpdateScreen()
 {
 	MidiPlayer player;
 	
-
-	for (int y = 0; y < 4; ++y)
+	for (int y = 0; y < 8; ++y)
 	{
 		for (int x = 0; x < 32; ++x)
 		{
-			int otherY = Map(y, 0, 3, 0, image.height - 2);
+			int otherY = Map(y, 0, 7, 0, image.height - 2);
 			int otherX = Map(x, 0, 31, 0, image.width - 2);
-
-			
-			
-			for (int c = 0; c < 3; ++c)
+		for (int c = 0; c < 3; ++c)
 			{
 				int sample1 = image.GetPixel(otherX, otherY, c);
 				int sample2 = image.GetPixel(otherX + 1, otherY, c);
@@ -68,50 +63,23 @@ void UpdateScreen()
 
 				if (c == 0)
 				{
-					cout << "Array Pos: " << x + (y * 32) << " red: "<< sampleAverage << endl;
+					cout << "x: " << x << " y: " << y << " red: "<< sampleAverage << endl;
 				}
 
-				player.SendMidiMessage(c + 1, x + (y * 32), sampleAverage);
+				if (x + (y * 32) < 128)
+					player.SendMidiMessage(c + 1, x + (y * 32), sampleAverage);
+				if (x + (y * 32) >= 128)
+					player.SendMidiMessage(c + 4, (x + (y * 32)) - 128, sampleAverage);
 				std::this_thread::sleep_for(std::chrono::milliseconds(6));
 			}
 		}
 	}
-	
-
-	//for (int y = 0; y < 4; ++y)
-	//{
-	//	for (int x = 0; x < 32; ++x)
-	//	{
-	//		
-	//		player.SendMidiMessage(1, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 0));
-	//		std::this_thread::sleep_for(std::chrono::milliseconds(7));
-	//		
-	//		player.SendMidiMessage(2, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 1));
-	//		std::this_thread::sleep_for(std::chrono::milliseconds(7));
-	//		
-	//		player.SendMidiMessage(3, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 2));
-	//		std::this_thread::sleep_for(std::chrono::milliseconds(7));
-	//
-	//		cout << "pitch: " << x + (y*32) << " red: " << (int)image.GetPixel(x, y, 0) << " green: " << (int)image.GetPixel(x, y, 1) << " blue: " << (int)image.GetPixel(x, y, 2) << endl;
-	//
-	//	}
-	//}
-
-		//player.SendMidiMessage(1, i, myColor);
-		//player.SendMidiMessage(2, i, myColor + (ColorMod/2));
-		//player.SendMidiMessage(3, i, myColor + ColorMod);
-		//std::this_thread::sleep_for(std::chrono::milliseconds(30));
-	
 }
 
 
 
 int main(int argc, char *argv[])
 {
-
-	
-	//int r,g,b;
-	
 	UpdateScreen();
 
 

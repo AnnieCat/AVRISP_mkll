@@ -32,19 +32,24 @@ int x, y;
 int r, g, b = -1;
 
 void HandleNoteOn(byte channel, byte pitch, byte velocity)
-{
+{ 
   if(channel==1)
     r = velocity;
   if(channel == 2)
     g = velocity;
   if(channel == 3)
     b = velocity;
-
+  if(channel == 4)
+    r = velocity;
+  if(channel == 5)
+    g = velocity;
+  if(channel == 6)
+    b = velocity;
 
     int y = ceil(pitch / 32);
     int x = pitch - (y * 32);
 
-    if(pitch < 128)
+    if(channel < 4)
     {
       if(r > -1 && g > -1 && b > -1)
       {
@@ -53,7 +58,15 @@ void HandleNoteOn(byte channel, byte pitch, byte velocity)
         r, g, b = -1;
       }
     }
-    
+    if(channel >= 4)
+    {
+      if(r > -1 && g > -1 && b > -1)
+      {
+        matrix.drawPixel(x,y+4, matrix.Color(r,g,b));
+        matrix.show();
+        r, g, b = -1;
+      }
+    }
 }
 
 
