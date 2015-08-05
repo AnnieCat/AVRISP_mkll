@@ -33,20 +33,63 @@ struct Image
 	}
 };
 
-int myColor = 0;
+int myColor = 255;
 int arrayPos;
+int x, y;
+
+//int ColorMod = 0;
+Image image("rainbow2.jpg");
+
+void UpdateScreen()
+{
+	MidiPlayer player;
+	
+
+	for (int y = 0; y < 4; ++y)
+	{
+		for (int x = 0; x < 32; ++x)
+		{
+			player.SendMidiMessage(1, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 0));
+			std::this_thread::sleep_for(std::chrono::milliseconds(7));
+			
+			player.SendMidiMessage(2, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 1));
+			std::this_thread::sleep_for(std::chrono::milliseconds(7));
+			
+			player.SendMidiMessage(3, x + (y * 32), image.GetPixel(x * (image.width/32), y * (image.height/4), 2));
+			std::this_thread::sleep_for(std::chrono::milliseconds(7));
+
+			cout << "pitch: " << x + (y*32) << " red: " << (int)image.GetPixel(x, y, 0) << " green: " << (int)image.GetPixel(x, y, 1) << " blue: " << (int)image.GetPixel(x, y, 2) << endl;
+
+		}
+	}
+
+		//player.SendMidiMessage(1, i, myColor);
+		//player.SendMidiMessage(2, i, myColor + (ColorMod/2));
+		//player.SendMidiMessage(3, i, myColor + ColorMod);
+		//std::this_thread::sleep_for(std::chrono::milliseconds(30));
+	
+}
 
 int main(int argc, char *argv[])
 {
 
-	Image image("rainbowDebug.jpg");
-	int r,g,b;
 	
+	//int r,g,b;
+	
+	UpdateScreen();
 
-	while(1){
-		MidiPlayer player;
+
+	//while(1){
 		
-		cout << "array Position? " << arrayPos << endl;
+		
+		/*cout << "x? " << endl;
+		cin >> x;
+		cout << "y? " << endl;
+		cin >> y;
+		cout << "  red: " << (int)image.GetPixel(x, y, 0) << "  green: " << (int)image.GetPixel(x, y, 1) << "  blue: " << (int)image.GetPixel(x, y, 2) << endl;
+		*/
+
+		/*cout << "array Position? " << arrayPos << endl;
 		cin >> arrayPos;
 		cout << "r? " << endl;
 		cin >> r;
@@ -58,7 +101,22 @@ int main(int argc, char *argv[])
 		player.SendMidiMessage(1, arrayPos, r);
 		player.SendMidiMessage(2, arrayPos, g);
 		player.SendMidiMessage(3, arrayPos, b);
-		std::this_thread::sleep_for(std::chrono::milliseconds(7));
+		std::this_thread::sleep_for(std::chrono::milliseconds(7));*/
+
+
+		
+		
+
+		/*for (int y = 0; y < 4; y++)
+		{
+			for (int x = 0; x < 32; x++)
+			{
+				player.SendMidiMessage(1, x + (y * 32), (int)image.GetPixel(x, y, 0));
+				player.SendMidiMessage(2, x + (y * 32), (int)image.GetPixel(x, y, 1));
+				player.SendMidiMessage(3, x + (y * 32), (int)image.GetPixel(x, y, 2));
+				std::this_thread::sleep_for(std::chrono::milliseconds(7));
+			}
+		}*/
 
 		/*for (int y = 0; y < 4; ++y)
 		{
@@ -93,9 +151,9 @@ int main(int argc, char *argv[])
 			//7 seems to be minimum
 			std::this_thread::sleep_for(std::chrono::milliseconds(7));*/
 		//}
-		std::cout << "Done Sending!" << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	}
+	//	std::cout << "Done Sending!" << std::endl;
+	//	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	//}
 
 	
 	return 0;
